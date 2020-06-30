@@ -6,4 +6,4 @@ const config = {
   mongoUrl: MONGO_URL || 'mongodb://localhost/test'
 }
 
-export default config;
+export { config };
