@@ -9,7 +9,11 @@ export class TasksService {
   constructor(@InjectModel(Task.name) private taskModel: Model<Task>) {}
 
   async getAll(search: string): Promise<Task[]> {
-    return this.taskModel.find({ text: { "$regex": search, "$options": "i" }}).exec();
+    return this.taskModel
+      .find({
+        text: { $regex: search, $options: 'i' },
+      })
+      .exec();
   }
 
   async create(createTaskDto: CreateTaskDto): Promise<Task> {

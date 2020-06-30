@@ -5,8 +5,8 @@ import { Document } from 'mongoose';
 export class Task extends Document {
   @Prop({ required: true })
   text: string;
-  
-  @Prop({ default: false})
+
+  @Prop({ default: false })
   isDone: boolean;
 }
 
