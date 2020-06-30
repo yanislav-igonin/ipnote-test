@@ -27,3 +27,4 @@ docker-compose -f development.docker-compose.yml up --build
 ```json
 { "tasks": [...] }
 ```
+2) Как убрать пометку required для квери параметра search в GET /tasks?
