@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: development.Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      MONGO_URL: mongodb://ipnote:test_password@mongo/ipnote
+    depends_on:
+      - mongo
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000
+
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ipnote
+      MONGO_INITDB_ROOT_PASSWORD: test_password
+      MONGO_INITDB_DATABASE: ipnote
+    ports:
+      - 27017:27017
