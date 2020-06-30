@@ -10,4 +10,11 @@ export class Task extends Document {
   isDone: boolean;
 }
 
-export const TaskSchema = SchemaFactory.createForClass(Task);
+const TaskSchema = SchemaFactory.createForClass(Task);
+TaskSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (doc, ret) => { delete ret._id  }
+});
+
+export { TaskSchema };
