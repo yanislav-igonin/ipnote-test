@@ -31,19 +31,20 @@ export class TasksController {
   @ApiOkResponse({ type: CreateTaskDto, isArray: true })
   async getAll(
     @Query('search', new DefaultValuePipe('')) search: string,
-  ): Promise<{ tasks: Task[] }> {
+  ): Promise<Task[]> {
     const tasks = await this.tasksService.getAll(search);
-    return { tasks };
+    return tasks;
   }
 
   @Post()
   @ApiCreatedResponse({ type: CreateTaskDto })
-  async create(@Body() createTaskDto: CreateTaskDto): Promise<{ task: Task }> {
+  async create(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     const createdTask = await this.tasksService.create(createTaskDto);
-    return { task: createdTask };
+    return createdTask;
   }
 
   @Delete(':taskId')
+  @ApiOkResponse({ type: CreateTaskDto })
   @ApiNotFoundResponse({ description: 'Task not found.' })
   async removeById(
     @Param('taskId') taskId: string,
@@ -58,6 +59,7 @@ export class TasksController {
   }
 
   @Put(':taskId/done')
+  @ApiOkResponse({ type: CreateTaskDto })
   @ApiNotFoundResponse({ description: 'Task not found.' })
   async toggleIsDone(@Param('taskId') taskId: string): Promise<{ task: Task }> {
     const result = await this.tasksService.toggleIsDone(taskId);
