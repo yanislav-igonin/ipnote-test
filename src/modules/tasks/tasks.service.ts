@@ -24,4 +24,14 @@ export class TasksService {
   async removeById(id: string): Promise<Task> {
     return this.taskModel.findByIdAndDelete(id);
   }
+
+  async toggleIsDone(id: string): Promise<Task> {
+    const task = await this.taskModel.findById(id)
+
+    if (task === null) {
+      return null;
+    }
+
+    return this.taskModel.findByIdAndUpdate(id, { isDone: !task.isDone })
+  }
 }

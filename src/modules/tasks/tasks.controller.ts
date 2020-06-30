@@ -8,6 +8,7 @@ import {
   Delete,
   Param,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './schemas/task.schema';
@@ -26,19 +27,30 @@ export class TasksController {
   }
 
   @Post()
-  async create(@Body() createTaskDto: CreateTaskDto): Promise<{ task: any }> {
+  async create(@Body() createTaskDto: CreateTaskDto): Promise<{ task: Task }> {
     const createdTask = await this.tasksService.create(createTaskDto);
     return { task: createdTask };
   }
 
   @Delete(':taskId')
-  async removeById(@Param('taskId') taskId: string): Promise<any> {
+  async removeById(@Param('taskId') taskId: string): Promise<{ deleted: true }> {
     const result = await this.tasksService.removeById(taskId);
-    
+
     if (result === null) {
       throw new NotFoundException();
     }
 
     return { deleted: true };
+  }
+
+  @Put(':taskId/done')
+  async toggleIsDone(@Param('taskId') taskId: string): Promise<{ task: Task }> {
+    const result = await this.tasksService.toggleIsDone(taskId);
+
+    if (result === null) {
+      throw new NotFoundException();
+    }
+
+    return { task: result }
   }
 }
