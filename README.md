@@ -1,5 +1,6 @@
 # ipnote-test
 
+## Task
 Нужно реализовать REST API для ToDo листа:
 1. Добавить запись ( с запланированной задачей)
 2. Удалить/Пометить задачу как выполненную.
@@ -15,3 +16,8 @@
 3. Поиск задачи
 
 Использовать https://nestjs.com/ + https://mongoosejs.com/
+
+## Startup
+```bash
+docker-compose -f development.docker-compose.yml up --build
+```
