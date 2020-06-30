@@ -20,4 +20,8 @@ export class TasksService {
     const createdTask = new this.taskModel(createTaskDto);
     return createdTask.save();
   }
+
+  async removeById(id: string): Promise<Task> {
+    return this.taskModel.findByIdAndDelete(id);
+  }
 }

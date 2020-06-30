@@ -5,6 +5,9 @@ import {
   Body,
   Query,
   DefaultValuePipe,
+  Delete,
+  Param,
+  NotFoundException,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './schemas/task.schema';
@@ -26,5 +29,16 @@ export class TasksController {
   async create(@Body() createTaskDto: CreateTaskDto): Promise<{ task: any }> {
     const createdTask = await this.tasksService.create(createTaskDto);
     return { task: createdTask };
+  }
+
+  @Delete(':taskId')
+  async removeById(@Param('taskId') taskId: string): Promise<any> {
+    const result = await this.tasksService.removeById(taskId);
+    
+    if (result === null) {
+      throw new NotFoundException();
+    }
+
+    return { deleted: true };
   }
 }
