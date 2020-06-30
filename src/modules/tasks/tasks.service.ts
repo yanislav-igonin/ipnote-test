@@ -26,12 +26,12 @@ export class TasksService {
   }
 
   async toggleIsDone(id: string): Promise<Task> {
-    const task = await this.taskModel.findById(id)
+    const task = await this.taskModel.findById(id);
 
     if (task === null) {
       return null;
     }
 
-    return this.taskModel.findByIdAndUpdate(id, { isDone: !task.isDone })
+    return this.taskModel.findByIdAndUpdate(id, { isDone: !task.isDone });
   }
 }

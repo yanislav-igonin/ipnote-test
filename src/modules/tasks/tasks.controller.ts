@@ -33,7 +33,9 @@ export class TasksController {
   }
 
   @Delete(':taskId')
-  async removeById(@Param('taskId') taskId: string): Promise<{ deleted: true }> {
+  async removeById(
+    @Param('taskId') taskId: string,
+  ): Promise<{ deleted: true }> {
     const result = await this.tasksService.removeById(taskId);
 
     if (result === null) {
@@ -51,6 +53,6 @@ export class TasksController {
       throw new NotFoundException();
     }
 
-    return { task: result }
+    return { task: result };
   }
 }
