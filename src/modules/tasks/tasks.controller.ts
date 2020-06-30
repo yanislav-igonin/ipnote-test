@@ -27,8 +27,8 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
-  @ApiQuery({ name: 'search',  })
-  @ApiOkResponse({ type: CreateTaskDto, isArray: true })
+  @ApiQuery({ name: 'search', required: false })
+  @ApiOkResponse({ type: Task, isArray: true })
   async getAll(
     @Query('search', new DefaultValuePipe('')) search: string,
   ): Promise<Task[]> {
@@ -37,14 +37,14 @@ export class TasksController {
   }
 
   @Post()
-  @ApiCreatedResponse({ type: CreateTaskDto })
+  @ApiCreatedResponse({ type: Task })
   async create(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-    const createdTask = await this.tasksService.create(createTaskDto);
-    return createdTask;
+    const task = await this.tasksService.create(createTaskDto);
+    return task;
   }
 
   @Delete(':taskId')
-  @ApiOkResponse({ type: CreateTaskDto })
+  @ApiOkResponse({ type: Task })
   @ApiNotFoundResponse({ description: 'Task not found.' })
   async removeById(
     @Param('taskId') taskId: string,
@@ -59,7 +59,7 @@ export class TasksController {
   }
 
   @Put(':taskId/done')
-  @ApiOkResponse({ type: CreateTaskDto })
+  @ApiOkResponse({ type: Task })
   @ApiNotFoundResponse({ description: 'Task not found.' })
   async toggleIsDone(@Param('taskId') taskId: string): Promise<{ task: Task }> {
     const result = await this.tasksService.toggleIsDone(taskId);
