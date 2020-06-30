@@ -32,6 +32,7 @@ export class TasksService {
       return null;
     }
 
-    return this.taskModel.findByIdAndUpdate(id, { isDone: !task.isDone });
+    task.isDone = !task.isDone;
+    return task.save();
   }
 }
