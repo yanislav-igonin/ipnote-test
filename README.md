@@ -21,3 +21,9 @@
 ```bash
 docker-compose -f development.docker-compose.yml up --build
 ```
+
+## Questions
+1) Как обозначить в сваггере респонс более сложный, чем простой объект или массив? Например:
+```json
+{ "tasks": [...] }
+```
